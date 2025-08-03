@@ -1,0 +1,38 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: coal_mining
+    ports:
+      - "3306:3306"
+    deploy:
+      resources:
+        limits:
+          memory: 6g
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  doris:
+    image: apache/doris:doris-all-in-one-2.1.0
+    container_name: doris
+    ports:
+      - "8030:8030"
+      - "9030:9030"
+    volumes:
+      - doris_data:/opt/apache-doris
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./metabase-data:/metabase-data
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+  doris_data:

@@ -1,0 +1,8 @@
+pymysql
+pandas
+sqlalchemy
+clickhouse-driver
+requests
+prophet
+matplotlib
+python-dotenv
